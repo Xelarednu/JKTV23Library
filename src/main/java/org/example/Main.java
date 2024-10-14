@@ -1,10 +1,17 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import org.example.repository.BookRepos;
+import org.example.storages.StorageBook;
+import org.example.tools.Input;
+import org.example.tools.impl.ConsoleInput;
+
 public class Main {
     public static void main(String[] args) {
-        App app = new App();
+
+        BookRepos bookRepos = new StorageBook();
+        Input input = new ConsoleInput();
+
+        App app = new App(input, bookRepos);
         app.run();
     }
 }

@@ -1,25 +1,26 @@
 package org.example.services;
 
 import org.example.model.Book;
-import org.example.services.helpers.BookDataInput;
-
-import java.util.Scanner;
+import org.example.repository.BookRepos;
+import org.example.services.helpers.AppHelperBookDataInput;
+import org.example.tools.Input;
 
 public class BookService {
-    private final Scanner scanner;
+    private final Input input;
+    private final BookRepos bookRepos;
 
-    public BookService(Scanner scanner) {
-        this.scanner = scanner;
+    public BookService(Input input, BookRepos bookRepos) {
+        this.input = input;
+        this.bookRepos = bookRepos;
     }
 
-    public boolean addBook(BookDataInput bookDataInput) {
-        Book book = bookDataInput.createBook(scanner);
+    public boolean addBook(AppHelperBookDataInput appHelperBookDataInput) {
+        Book book = appHelperBookDataInput.createBook(input);
 
         if (book != null) {
-
-            return true;
+            bookRepos.saveBook(book);
         }
 
-        return false;
+        return book != null;
     }
 }
