@@ -3,7 +3,7 @@ package org.example.model;
 import java.util.Objects;
 
 public class Author {
-    private static Long count;
+    private static long count;
 
     private Long id;
     private String  firstName;
@@ -47,13 +47,18 @@ public class Author {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Author author = (Author) o;
-        return Objects.equals(id, author.id) && Objects.equals(firstName, author.firstName) && Objects.equals(lastName, author.lastName);
+
+        if (!Objects.equals(firstName, author.firstName)) return false;
+        return Objects.equals(lastName, author.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName);
+        int result = firstName != null ? firstName.hashCode() : 0;
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        return result;
     }
 
     @Override

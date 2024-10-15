@@ -3,7 +3,7 @@ package org.example.model;
 import java.util.Objects;
 
 public class User {
-    private static Long count;
+    private static long count;
 
     private Long id;
     private String  firstName;

@@ -48,12 +48,16 @@ public class App {
                     break;
                 case 1:
                     BookService bookService = new BookService(input, bookRepos);
-                    bookService.addBook(new AppHelperBookDataInput());
+                    if(bookService.addBook(new AppHelperBookDataInput())) {
+                        System.out.println("Book added");
+                    }
                     break;
-//                case 2:
-//                    UserService userService = new UserService(input);
-//                    userService.addUser(new AppHelperUserDataInput());
-//                    break;
+                case 2:
+                    UserService userService = new UserService(input);
+                    if (userService.addUser(new AppHelperUserDataInput())){
+                        System.out.println("User added");
+                    }
+                    break;
                 default:
                     System.out.println("Invalid option!");
                     break;

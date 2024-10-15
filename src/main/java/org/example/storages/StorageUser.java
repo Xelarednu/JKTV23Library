@@ -1,31 +1,31 @@
 package org.example.storages;
 
-import org.example.model.Book;
-import org.example.repository.BookRepos;
+import org.example.model.User;
+import org.example.repository.UserRepos;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StorageBook implements BookRepos {
+public class StorageUser implements UserRepos{
 
-    private List<Book> books;
-    private final String fileName = "books";
+    private List<User> users;
+    private final String fileName = "users";
 
-    public StorageBook() {
+    public StorageUser() {
 
     }
 
     @Override
-    public void saveBook(Book book) {
+    public void saveUser(User user) {
         FileOutputStream fileOutputStream;
         ObjectOutputStream objectOutputStream;
         try {
             fileOutputStream = new FileOutputStream(fileName);
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(books);
+            objectOutputStream.writeObject(users);
             objectOutputStream.flush();
-            books.add(book);
+            users.add(user);
         } catch (FileNotFoundException e) {
             System.out.println("There is no such file: " + e);
         } catch (IOException e) {
@@ -34,13 +34,13 @@ public class StorageBook implements BookRepos {
     }
 
     @Override
-    public List<Book> loadBooks() {
+    public List<User> loadUser() {
         FileInputStream fileInputStream;
         ObjectInputStream objectInputStream;
         try {
             fileInputStream = new FileInputStream(fileName);
             objectInputStream = new ObjectInputStream(fileInputStream);
-            return (List<Book>) objectInputStream.readObject();
+            return (List<User>) objectInputStream.readObject();
         } catch (FileNotFoundException e) {
             System.out.println("There is no such file: " + e);
         } catch (IOException e) {
@@ -51,12 +51,12 @@ public class StorageBook implements BookRepos {
         return new ArrayList<>();
     }
 
-    public List<Book> getBooks() {
-        return books;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public String getFileName() {

@@ -6,21 +6,21 @@ import java.util.List;
 import java.util.Objects;
 
 public class Book {
-    private static Long count;
+    private static long count;
 
     private Long id;
     private String  title;
-    private List<Author> author = new ArrayList<>();
+    private List<Author> authors = new ArrayList<>();
     private int publishYear;
 
     public Book() {
         id = count++;
     }
 
-    public Book(String title, Author author, int publishYear) {
+    public Book(String title, List<Author> authors, int publishYear) {
         id = count++;
         this.title = title;
-        this.author.add(author);
+        this.authors = authors;
         this.publishYear = publishYear;
     }
 
@@ -41,11 +41,11 @@ public class Book {
     }
 
     public List<Author> getAuthor() {
-        return author;
+        return authors;
     }
 
     public void setAuthor(List<Author> author) {
-        this.author = author;
+        this.authors = author;
     }
 
     public int getPublishYear() {
@@ -61,12 +61,12 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return publishYear == book.publishYear && Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.deepEquals(author, book.author);
+        return publishYear == book.publishYear && Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.deepEquals(authors, book.authors);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, Arrays.hashCode(author.toArray()), publishYear);
+        return Objects.hash(id, title, Arrays.hashCode(authors.toArray()), publishYear);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class Book {
         final StringBuilder sb = new StringBuilder("Book{");
         sb.append("id=").append(id);
         sb.append(", title='").append(title).append('\'');
-        sb.append(", author=").append(Arrays.toString(author.toArray()));
+        sb.append(", author=").append(Arrays.toString(authors.toArray()));
         sb.append(", publishYear=").append(publishYear);
         sb.append('}');
         return sb.toString();
