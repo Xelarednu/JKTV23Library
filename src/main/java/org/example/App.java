@@ -1,28 +1,41 @@
 package org.example;
 
 import org.example.model.Book;
+import org.example.model.User;
 import org.example.repository.BookRepos;
-import org.example.services.BookService;
+import org.example.repository.Repository;
 import org.example.services.UserService;
+import org.example.services.BookService;
 import org.example.services.helpers.AppHelperBookDataInput;
 import org.example.services.helpers.AppHelperUserDataInput;
-import org.example.storages.StorageBook;
+import org.example.storages.Storage;
 import org.example.tools.Input;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class App {
     private final Input input;
-    private Scanner scanner = new Scanner(System.in);
     boolean repeat = true;
     int option;
     public static List<Book> books;
     private BookRepos bookRepos;
+    Repository<Book> repositoryBook;
+    Repository<User> repositoryUser;
+    private BookService bookService;
+    private UserService userService;
+    private AppHelperUserDataInput appHelperUserDataInput;
+    private AppHelperBookDataInput appHelperBookDataInput;
 
-    public App(Input input, BookRepos bookRepos) {
+    public App(Input input) {
         this.input = input;
+        this.repositoryBook = new Storage<>("books");
+        this.repositoryUser = new Storage<>("users");
         this.bookRepos = bookRepos;
+        this.bookService = new BookService(input, repositoryBook);
+        this.userService = new UserService(input, repositoryUser);
+        this.appHelperUserDataInput = new AppHelperUserDataInput();
+        this.appHelperBookDataInput = new AppHelperBookDataInput();
+
     }
 
     public void run() {
@@ -47,16 +60,17 @@ public class App {
                     repeat = false;
                     break;
                 case 1:
-                    BookService bookService = new BookService(input, bookRepos);
-                    if(bookService.addBook(new AppHelperBookDataInput())) {
+                    if(bookService.addBook(appHelperBookDataInput)) {
                         System.out.println("Book added");
                     }
                     break;
                 case 2:
-                    UserService userService = new UserService(input);
-                    if (userService.addUser(new AppHelperUserDataInput())){
+                    if (userService.addUser(appHelperUserDataInput)){
                         System.out.println("User added");
                     }
+                    break;
+                case 4:
+                    bookService.books(appHelperBookDataInput, repositoryBook);
                     break;
                 default:
                     System.out.println("Invalid option!");

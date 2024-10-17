@@ -69,7 +69,7 @@ class AppTest {
     void appAddBook() {
         when(inputMock.nextLine()).thenReturn("1", "0");
         AppHelperBookDataInput appHelperBookDataInputMock = Mockito.mock(AppHelperBookDataInput.class);
-        BookService bookServiceMock = Mockito.mock(BookService.class);
+        //BookService bookServiceMock = Mockito.mock(BookService.class);
         Author author = new Author("Robert", "Chambers");
         List<Author> authors = new ArrayList<>();
         authors.add(author);
@@ -83,7 +83,7 @@ class AppTest {
     }
 
     @Test
-    void runAddUser () {
+    void appAddUser () {
         when(inputMock.nextLine()).thenReturn("2", "0");
         AppHelperUserDataInput appHelperUserDataInputMock = Mockito.mock(AppHelperUserDataInput.class);
         User user = new User("Ivan", "Ivanov", "4589657142", "1va4ov@gmail.com");
