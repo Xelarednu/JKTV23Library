@@ -1,8 +1,9 @@
 package org.example.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
     private static long count;
 
     private Long id;

@@ -3,7 +3,6 @@ package org.example;
 import org.example.model.Book;
 import org.example.model.Registry;
 import org.example.model.User;
-import org.example.repository.BookRepos;
 import org.example.repository.Repository;
 import org.example.services.RegistryService;
 import org.example.services.UserService;
@@ -17,6 +16,10 @@ import org.example.interfaces.Input;
 import java.util.List;
 
 public class App {
+    List<Book> books;
+    List<User> users;
+    List<Registry> registries;
+
     private final Input input;
     boolean repeat = true;
     int option;
@@ -38,9 +41,12 @@ public class App {
         this.appHelperUserInput = new AppHelperUserInput();
         this.appHelperBookInput = new AppHelperBookInput();
         this.appHelperRegistryInput = new AppHelperRegistryInput();
-        this.bookService = new BookService(input, appHelperBookInput, repositoryBook);
-        this.userService = new UserService(input,appHelperUserInput, repositoryUser);
-        this.registryService = new RegistryService(input, repositoryRegistry, appHelperRegistryInput);
+        this.bookService = new BookService(books, input, appHelperBookInput, repositoryBook);
+        this.userService = new UserService(users, input,appHelperUserInput, repositoryUser);
+        this.registryService = new RegistryService(registries, users, books, input, repositoryRegistry, appHelperRegistryInput);
+        books = repositoryBook.load();
+        users = repositoryUser.load();
+        registries = repositoryRegistry.load();
     }
 
     public void run() {
@@ -79,20 +85,24 @@ public class App {
                     }
                     break;
                 case 3:
-                    userService.users(repositoryUser);
+                    userService.users(users);
                     break;
                 case 4:
-                    bookService.books(repositoryBook);
+                    bookService.books(books);
                     break;
                 case 5:
-                    if (registryService.bookBorrow(userService, bookService)) {
+                    if (registryService.bookBorrow(books, userService, bookService)) {
                         System.out.println("Book borrowed");
                     } else {
                         System.out.println("Book borrowing failed");
                     }
                     break;
                 case 6:
-                    if (registryService.returnBook(appHelperRegistryInput,bookService))
+                    if (registryService.returnBook(input, registries)) {
+                        System.out.println("Book returned");
+                    } else {
+                        System.out.println("Book return failed");
+                    }
                     break;
                 default:
                     System.out.println("Invalid option!");

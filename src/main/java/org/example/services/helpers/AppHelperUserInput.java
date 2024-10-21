@@ -31,7 +31,7 @@ public class AppHelperUserInput {
         } else {
             System.out.println("-------Readers list-------");
             for (int i = 0; i < entities.size(); i++) {
-                System.out.printf("%s %n %s %n %s %n %s", i + 1, entities.get(i).getFirstName(), entities.get(i).getLastName(), entities.get(i).getEmail(), entities.get(i).getPhoneNumber());
+                System.out.printf("%d %s %s %s %s %n", i + 1, entities.get(i).getFirstName(), entities.get(i).getLastName(), entities.get(i).getEmail(), entities.get(i).getPhoneNumber());
             }
             System.out.println("-------List end-------");
         }

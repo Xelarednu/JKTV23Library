@@ -14,18 +14,18 @@ import java.util.List;
 
 public class AppHelperRegistryInput {
 
-    public Registry bookBorrow(Input input, UserService userService, BookService bookService) {
+    public Registry bookBorrow(List<Book> books, List<User> users, List<Registry> registries, Input input, UserService userService, BookService bookService) {
         try {
             Registry registry = new Registry();
-            userService.users(userService.getRepository());
+            userService.users(users);
             System.out.print("Enter user number from list: ");
             int userNumber = Integer.parseInt(input.nextLine());
-            User user = userService.getRepository().getEntities().get(userNumber - 1);
+            User user = users.get(userNumber - 1);
 
-            bookService.books(bookService.getRepository());
+            bookService.books(books);
             System.out.print("Enter book number from list: ");
             int bookNumber = Integer.parseInt(input.nextLine());
-            Book book = bookService.getRepository().getEntities().get(bookNumber - 1);
+            Book book = books.get(bookNumber - 1);
 
             registry.setUser(user);
             registry.setBook(book);
@@ -37,29 +37,27 @@ public class AppHelperRegistryInput {
         }
     }
 
-    public void listBorrowedBooks(Repository repository) {
-        List<Registry> registryList = (List<Registry>) repository.getEntities();
-        if (repository.getEntities().isEmpty()) {
+    public void listBorrowedBooks(List<Registry> registries) {
+        if (registries.isEmpty()) {
             System.out.println("Borrowed books list is empty");
         } else {
             System.out.println("-------Borrowed books list-------");
-            for (int i = 0; i < repository.getEntities().size(); i++) {
-                if ((registryList.get(i)).getReturnBookDate() != null) {
+            for (int i = 0; i < registries.size(); i++) {
+                if ((registries.get(i)).getReturnBookDate() != null) {
                     continue;
                 }
-                System.out.printf("%s %n %s %n %s", i + 1, registryList.get(i).getBook().getTitle(), Arrays.toString(registryList.get(i).getBook().getAuthor().toArray()), registryList.get(i).getBook().getPublishYear());
+                System.out.printf("%s %n %s %n %s", i + 1, registries.get(i).getBook().getTitle(), Arrays.toString(registries.get(i).getBook().getAuthor().toArray()), registries.get(i).getBook().getPublishYear());
             }
             System.out.println("-------List end-------");
         }
     }
 
-    public boolean returnBookDialog(Input input, Repository repository) {
+    public boolean returnBookDialog(Input input, List<Registry> registries) {
         try {
-            listBorrowedBooks(repository);
+            listBorrowedBooks(registries);
             System.out.println("Enter returnable book number from list: ");
             int numberReturnBook = Integer.parseInt(input.nextLine());
-            Registry registry = (Registry) repository.getEntities().get(numberReturnBook - 1);
-            registry.setReturnBookDate(LocalDate.now());
+            registries.get(numberReturnBook - 1).setReturnBookDate(LocalDate.now());
 
             return true;
         } catch (Exception e) {

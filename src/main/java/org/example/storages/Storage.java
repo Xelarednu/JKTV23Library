@@ -1,7 +1,5 @@
 package org.example.storages;
 
-import org.example.model.Book;
-import org.example.model.User;
 import org.example.repository.Repository;
 
 import java.io.*;
@@ -10,16 +8,16 @@ import java.util.List;
 
 public class Storage<T> implements Repository<T> {
 
-    private List<T> entities = new ArrayList<>();
+    //private List<T> entities = new ArrayList<>();
     private String fileName = "users";
 
     public Storage(String fileName) {
         this.fileName = fileName;
-        entities = this.load();
+//        entities = this.load();
     }
 
     @Override
-    public void save(T entity) {
+    public void save(List<T> entities) {
 
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
@@ -28,11 +26,10 @@ public class Storage<T> implements Repository<T> {
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(entities);
             objectOutputStream.flush();
-            entities.add(entity);
         } catch (FileNotFoundException e) {
-            System.out.println("Нет такого файла: "+e.toString());
+            System.out.println("There is no such file: "+e.toString());
         } catch (IOException e) {
-            System.out.println("Ошибка ввода/вывода: "+e.toString());
+            System.out.println("I/O error: "+e.toString());
         }
     }
 
@@ -45,22 +42,22 @@ public class Storage<T> implements Repository<T> {
             objectInputStream = new ObjectInputStream(fileInputStream);
             return (List<T>) objectInputStream.readObject();
         } catch (FileNotFoundException e) {
-            System.out.println("Нет такого файла: "+e.toString());
+            System.out.println("There is no such file: "+e.toString());
         } catch (IOException e) {
-            System.out.println("Ошибка ввода/вывода: "+e.toString());
+            System.out.println("I/O error: "+e.toString());
         } catch (ClassNotFoundException e) {
-            System.out.println("Не найден класс: "+e.toString());
+            System.out.println("Class not found: "+e.toString());
         }
         return new ArrayList<T>();
     }
 
-    public List<T> getEntities() {
-        return entities;
-    }
-
-    public void setUsers(List<T> entities) {
-        this.entities = entities;
-    }
+//    public List<T> getEntities() {
+//        return entities;
+//    }
+//
+//    public void setUsers(List<T> entities) {
+//        this.entities = entities;
+//    }
 
     public String getFileName() {
         return fileName;
