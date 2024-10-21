@@ -1,6 +1,6 @@
-package org.example.tools.impl;
+package org.example.interfaces.impl;
 
-import org.example.tools.Input;
+import org.example.interfaces.Input;
 
 import java.util.Scanner;
 

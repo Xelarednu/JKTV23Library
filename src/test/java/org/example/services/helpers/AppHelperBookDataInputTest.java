@@ -1,12 +1,9 @@
 package org.example.services.helpers;
 
-import org.example.App;
 import org.example.model.Author;
-import org.example.repository.BookRepos;
-import org.example.storages.StorageBook;
 import org.example.model.Book;
-import org.example.tools.Input;
-import org.example.tools.impl.ConsoleInput;
+import org.example.interfaces.Input;
+import org.example.interfaces.impl.ConsoleInput;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +18,7 @@ import static org.mockito.Mockito.when;
 class AppHelperBookDataInputTest {
 
     Input inputMock;
-    AppHelperBookDataInput appHelperBookDataInput = new AppHelperBookDataInput();
+    AppHelperBookInput appHelperBookDataInput = new AppHelperBookInput();
 
     @BeforeEach
     void setUp() {

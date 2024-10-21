@@ -2,13 +2,12 @@ package org.example.services.helpers;
 
 import org.example.model.Author;
 import org.example.model.Book;
-import org.example.tools.Input;
+import org.example.interfaces.Input;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AppHelperBookDataInput {
+public class AppHelperBookInput {
 
     public Book createBook(Input input) {
         Book book = new Book();

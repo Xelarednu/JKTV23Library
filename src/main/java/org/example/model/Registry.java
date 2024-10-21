@@ -12,9 +12,9 @@ public class Registry {
 
     private Book book;
 
-    private LocalDate startDate;
+    private LocalDate bookBorrowDate;
 
-    private LocalDate endDate;
+    private LocalDate returnBookDate;
 
     public Registry() {
 
@@ -23,8 +23,8 @@ public class Registry {
     public Registry(User user, Book book, LocalDate startDate, LocalDate endDate) {
         this.user = user;
         this.book = book;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.bookBorrowDate = startDate;
+        this.returnBookDate = endDate;
     }
 
     public UUID getId() {
@@ -51,20 +51,20 @@ public class Registry {
         this.book = book;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public LocalDate getBookBorrowDate() {
+        return bookBorrowDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setBookBorrowDate(LocalDate bookBorrowDate) {
+        this.bookBorrowDate = bookBorrowDate;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
+    public LocalDate getReturnBookDate() {
+        return returnBookDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
+    public void setReturnBookDate(LocalDate returnBookDate) {
+        this.returnBookDate = returnBookDate;
     }
 
     @Override
@@ -77,8 +77,8 @@ public class Registry {
         if (!Objects.equals(id, registry.id)) return false;
         if (!Objects.equals(user, registry.user)) return false;
         if (!Objects.equals(book, registry.book)) return false;
-        if (!Objects.equals(startDate, registry.startDate)) return false;
-        return Objects.equals(endDate, registry.endDate);
+        if (!Objects.equals(bookBorrowDate, registry.bookBorrowDate)) return false;
+        return Objects.equals(returnBookDate, registry.returnBookDate);
     }
 
     @Override
@@ -86,8 +86,8 @@ public class Registry {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (book != null ? book.hashCode() : 0);
-        result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
-        result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
+        result = 31 * result + (bookBorrowDate != null ? bookBorrowDate.hashCode() : 0);
+        result = 31 * result + (returnBookDate != null ? returnBookDate.hashCode() : 0);
         return result;
     }
 
@@ -97,8 +97,8 @@ public class Registry {
         sb.append("id=").append(id);
         sb.append(", user=").append(user);
         sb.append(", book=").append(book);
-        sb.append(", startDate=").append(startDate);
-        sb.append(", endDate=").append(endDate);
+        sb.append(", startDate=").append(bookBorrowDate);
+        sb.append(", endDate=").append(returnBookDate);
         sb.append('}');
         return sb.toString();
     }

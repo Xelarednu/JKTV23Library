@@ -1,4 +1,4 @@
-package org.example.tools;
+package org.example.interfaces;
 
 public interface Input {
     String nextLine();

@@ -4,23 +4,19 @@ import org.example.model.Book;
 import org.example.model.User;
 import org.example.repository.BookRepos;
 import org.example.repository.UserRepos;
-import org.example.services.BookService;
-import org.example.services.helpers.AppHelperBookDataInput;
-import org.example.services.helpers.AppHelperUserDataInput;
+import org.example.services.helpers.AppHelperBookInput;
+import org.example.services.helpers.AppHelperUserInput;
 import org.example.storages.StorageBook;
 import org.example.storages.StorageUser;
-import org.example.tools.Input;
-import org.example.tools.impl.ConsoleInput;
+import org.example.interfaces.Input;
+import org.example.interfaces.impl.ConsoleInput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +64,7 @@ class AppTest {
     @Test
     void appAddBook() {
         when(inputMock.nextLine()).thenReturn("1", "0");
-        AppHelperBookDataInput appHelperBookDataInputMock = Mockito.mock(AppHelperBookDataInput.class);
+        AppHelperBookInput appHelperBookDataInputMock = Mockito.mock(AppHelperBookInput.class);
         //BookService bookServiceMock = Mockito.mock(BookService.class);
         Author author = new Author("Robert", "Chambers");
         List<Author> authors = new ArrayList<>();
@@ -85,7 +81,7 @@ class AppTest {
     @Test
     void appAddUser () {
         when(inputMock.nextLine()).thenReturn("2", "0");
-        AppHelperUserDataInput appHelperUserDataInputMock = Mockito.mock(AppHelperUserDataInput.class);
+        AppHelperUserInput appHelperUserDataInputMock = Mockito.mock(AppHelperUserInput.class);
         User user = new User("Ivan", "Ivanov", "4589657142", "1va4ov@gmail.com");
         when(appHelperUserDataInputMock.createUser(inputMock)).thenReturn(user);
         App app = new App(inputMock, bookReposMock);
