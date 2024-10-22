@@ -8,20 +8,18 @@ import org.example.interfaces.Input;
 import java.util.List;
 
 public class UserService {
-    private final Input input;
     private final Repository<User> repository;
     private final AppHelperUserInput appHelperUserInput;
     private final List<User> users;
 
-    public UserService(List<User> users, Input input, AppHelperUserInput appHelperUserInput, Repository<User> repository) {
-        this.input = input;
+    public UserService(List<User> users, AppHelperUserInput appHelperUserInput, Repository<User> repository) {
         this.repository = repository;
         this.appHelperUserInput = appHelperUserInput;
         this.users = users;
     }
 
     public boolean addUser () {
-        User user = appHelperUserInput.createUser(input);
+        User user = appHelperUserInput.createUser();
 
         if (user != null) {
             users.add(user);
@@ -32,8 +30,8 @@ public class UserService {
         }
     }
 
-    public void users(List<User> users) {
-        appHelperUserInput.printUsers(users);
+    public void users() {
+        appHelperUserInput.printUsers();
     }
 
     public Repository<User> getRepository() {
